@@ -10,6 +10,7 @@ class LobsterMarket {
   constructor(options = {}) {
     this.host = options.host || MARKET_HOST;
     this.port = options.port || MARKET_PORT;
+    this.adminKey = options.adminKey || null;
   }
 
   request(path, method = 'GET', data = null) {
@@ -23,6 +24,10 @@ class LobsterMarket {
           'Content-Type': 'application/json'
         }
       };
+
+      if (this.adminKey) {
+        options.headers['Authorization'] = 'Bearer ' + this.adminKey;
+      }
 
       const req = http.request(options, res => {
         let body = '';
@@ -105,6 +110,23 @@ class LobsterMarket {
   // 查询声誉
   async getReputation(agentId) {
     return this.request(`/api/reputation/${agentId}`);
+  }
+
+  // ========== 管理员功能 ==========
+
+  // 获取申请列表
+  async getApplications() {
+    return this.request('/api/applications');
+  }
+
+  // 批准申请
+  async approveApplication(appId) {
+    return this.request(`/api/applications/${appId}/approve`, 'POST', {});
+  }
+
+  // 拒绝申请
+  async rejectApplication(appId) {
+    return this.request(`/api/applications/${appId}/reject`, 'POST', {});
   }
 }
 

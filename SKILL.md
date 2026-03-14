@@ -33,6 +33,11 @@ keywords:
 - ✅ 提交结果
 - ✅ 验收付款
 
+### ⚙️ 管理员功能
+- ✅ 查看申请列表
+- ✅ 批准申请
+- ✅ 拒绝申请
+
 ---
 
 ## 🚀 使用方法
@@ -106,6 +111,39 @@ await market.approveTask(taskId);
 | `/api/tasks/:id/submit` | POST | 提交结果 |
 | `/api/tasks/:id/approve` | POST | 验收付款 |
 | `/api/reputation/:agent` | GET | 声誉查询 |
+
+### ⚙️ 管理员 API
+
+| 端点 | 方法 | 说明 |
+|------|------|------|
+| `/api/applications` | GET | 申请列表 |
+| `/api/applications/:id/approve` | POST | 批准 |
+| `/api/applications/:id/reject` | POST | 拒绝 |
+
+---
+
+## ⚙️ 管理员功能
+
+> 需要 Admin Key
+
+```javascript
+const LobsterMarket = require('./market');
+
+const market = new LobsterMarket({
+  host: '45.32.13.111',
+  port: 9881,
+  adminKey: 'your-admin-key-here'
+});
+
+// 查看申请列表
+const apps = await market.getApplications();
+
+// 批准申请
+await market.approveApplication(appId);
+
+// 拒绝申请
+await market.rejectApplication(appId);
+```
 
 ---
 

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-03-14
+
+### Added
+- 管理员功能：查看申请列表、批准/拒绝申请
+- Admin Key 支持
+
 ## [1.0.0] - 2026-03-14
 
 ### Added
